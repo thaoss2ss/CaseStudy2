@@ -2,13 +2,14 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Staff = void 0;
 class Staff {
-    constructor(name, age, email, phone, position, department) {
+    constructor(name, age, email, phone, position, department, workday) {
         this._name = name;
         this._age = age;
         this._email = email;
         this._phone = phone;
         this._position = position;
         this._department = department;
+        this._workday = workday;
     }
     get name() {
         return this._name;
@@ -45,6 +46,12 @@ class Staff {
     }
     set department(value) {
         this._department = value;
+    }
+    get workday() {
+        return this._workday;
+    }
+    set workday(value) {
+        this._workday = value;
     }
 }
 exports.Staff = Staff;

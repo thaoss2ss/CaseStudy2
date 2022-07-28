@@ -26,6 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const rl = __importStar(require("readline-sync"));
 const Staff_Management_1 = require("./src/Staff-Management");
 const Staff_1 = require("./src/Staff");
+const SalaryStaff_1 = require("./src/SalaryStaff");
 var ChoiceStaff;
 (function (ChoiceStaff) {
     ChoiceStaff[ChoiceStaff["EXIT"] = 0] = "EXIT";
@@ -35,6 +36,7 @@ var ChoiceStaff;
     ChoiceStaff[ChoiceStaff["DELETE"] = 4] = "DELETE";
     ChoiceStaff[ChoiceStaff["FIND"] = 5] = "FIND";
     ChoiceStaff[ChoiceStaff["SORT"] = 6] = "SORT";
+    ChoiceStaff[ChoiceStaff["SALARY"] = 7] = "SALARY";
 })(ChoiceStaff || (ChoiceStaff = {}));
 var ChoiceOfSort;
 (function (ChoiceOfSort) {
@@ -50,19 +52,27 @@ var ChoiceOfFind;
     ChoiceOfFind[ChoiceOfFind["POSITION"] = 2] = "POSITION";
     ChoiceOfFind[ChoiceOfFind["DEPARTMENT"] = 3] = "DEPARTMENT";
 })(ChoiceOfFind || (ChoiceOfFind = {}));
+var ChoiceOfSalary;
+(function (ChoiceOfSalary) {
+    ChoiceOfSalary[ChoiceOfSalary["EXIT"] = 0] = "EXIT";
+    ChoiceOfSalary[ChoiceOfSalary["SALARY1"] = 1] = "SALARY1";
+    ChoiceOfSalary[ChoiceOfSalary["MONEY"] = 2] = "MONEY";
+})(ChoiceOfSalary || (ChoiceOfSalary = {}));
 let choice = -1;
 let staffManagement = new Staff_Management_1.StaffManagement();
-let staff1 = new Staff_1.Staff("Thao", 25, "thao@gmail.com", "0977969016", "Manager", "Regent");
-let staff2 = new Staff_1.Staff("Ngọc", 26, "ngoc@gmail.com", "0925682468", "Human resources manager", "Human Resource");
-let staff3 = new Staff_1.Staff("Tuyến", 27, "tuyen@gmail.com", "0925784685", "Vice President", "Regent");
-let staff4 = new Staff_1.Staff("Huyền", 24, "Huyen@gmail.com", "0925648768", "Business Staff", "Sales");
-let staff5 = new Staff_1.Staff("Hùng", 22, "hung@gmail.com", "0932645876", "Business Staff", "Sales");
-let staff6 = new Staff_1.Staff("Hoa", 23, "hoa@gmail.com", "0987543513", "Marketing staff", "Marketing");
-let staff7 = new Staff_1.Staff("Lan", 23, "lan@gmail.com", "0965842351", "Marketing staff", "Marketing");
-let staff8 = new Staff_1.Staff("Hương", 25, "huong@gmail.com", "0324515875", "Accounting staff", "Accounting");
-let staff9 = new Staff_1.Staff("Linh", 24, "linh@gmail.com", "0869452325", "Administrative staff personnel", "Human Resource");
-let staff10 = new Staff_1.Staff("Hoàng", 23, "hoang@gmail.com", "0325468264", "Administrative staff personnel", "Human Resource");
-let staff11 = new Staff_1.Staff("Kiệt", 21, "kiet@gmail.com", "0865464582", "Security", "Security and Order");
+let staff1 = new Staff_1.Staff("Thao", 25, "thao@gmail.com", "0977969016", "Manager", "Regent", 26);
+let staff2 = new Staff_1.Staff("Ngọc", 26, "ngoc@gmail.com", "0925682468", "Human resources manager", "Human Resource", 25);
+let staff3 = new Staff_1.Staff("Tuyến", 27, "tuyen@gmail.com", "0925784685", "Vice President", "Regent", 24);
+let staff4 = new Staff_1.Staff("Huyền", 24, "Huyen@gmail.com", "0925648768", "Business Staff", "Sales", 27);
+let staff5 = new Staff_1.Staff("Hùng", 22, "hung@gmail.com", "0932645876", "Business Staff", "Sales", 28);
+let staff6 = new Staff_1.Staff("Hoa", 23, "hoa@gmail.com", "0987543513", "Marketing staff", "Marketing", 26);
+let staff7 = new Staff_1.Staff("Lan", 23, "lan@gmail.com", "0965842351", "Marketing staff", "Marketing", 25);
+let staff8 = new Staff_1.Staff("Hương", 25, "huong@gmail.com", "0324515875", "Accounting staff", "Accounting", 27);
+let staff9 = new Staff_1.Staff("Linh", 24, "linh@gmail.com", "0869452325", "Administrative staff personnel", "Human Resource", 24);
+let staff10 = new Staff_1.Staff("Hoàng", 23, "hoang@gmail.com", "0325468264", "Administrative staff personnel", "Human Resource", 28);
+let staff11 = new Staff_1.Staff("Kiệt", 21, "kiet@gmail.com", "0865464582", "Security", "Security and Order", 25);
+let salarys = new SalaryStaff_1.SalaryStaff(500, 400, 350, 150, 150, 200, 200, 100);
+staffManagement.addSalary(salarys);
 staffManagement.createStaff(staff1);
 staffManagement.createStaff(staff2);
 staffManagement.createStaff(staff3);
@@ -84,8 +94,9 @@ function inputStaff() {
     let email = rl.question('Nhập Email :');
     let phone = rl.question('Nhập số điện thoại :');
     let position = rl.question('Nhập vị trí công việc :');
-    let department = rl.question('Nhập phong ban :');
-    return new Staff_1.Staff(name, age, email, phone, position, department);
+    let department = rl.question('Nhập phòng ban :');
+    let workday = +rl.question('Nhập số ngày làm trong tháng :');
+    return new Staff_1.Staff(name, age, email, phone, position, department, workday);
 }
 function showCreateStaff() {
     console.log('---Thông tin nhân viên---');
@@ -111,6 +122,7 @@ function Menu() {
     console.log('4. Xóa Nhân Viên');
     console.log('5. Tìm kiếm Nhân Viên');
     console.log('6. Sắp xếp Nhân Viên');
+    console.log('7. Lương, Thưởng và Phạt Nhân Viên');
     console.log('0. Thoát ');
 }
 function MenuSort() {
@@ -160,6 +172,23 @@ function MenuFind() {
     console.log('2.Tìm kiếm theo chức vụ ');
     console.log('3.Tìm kiếm theo phòng ban ');
 }
+function showSalary(Choice3) {
+    switch (Choice3) {
+        case ChoiceOfSalary.SALARY1:
+            console.log('--Tiền lương--');
+            staffManagement.salaryOfStaff();
+            break;
+        case ChoiceOfSalary.MONEY:
+            console.log('--Tiền thưởng và phạt-- ');
+            staffManagement.roseMoney();
+            break;
+    }
+}
+function MenuSalary() {
+    console.log('---Hiển thị lương và thưởng phạt tháng---');
+    console.log('1.Hiển thị lương nhân viên');
+    console.log('2.Tiền thưởng và phạt của nhân viên');
+}
 do {
     Menu();
     choice = +rl.question('Nhập lựa chọn của bạn :');
@@ -190,6 +219,12 @@ do {
             MenuSort();
             let Choice1 = +rl.question('Nhập lựa chọn :');
             showSortStaff(Choice1);
+            break;
+        }
+        case ChoiceStaff.SALARY: {
+            MenuSalary();
+            let Choice3 = +rl.question('Nhập lựa chọn :');
+            showSalary(Choice3);
             break;
         }
     }

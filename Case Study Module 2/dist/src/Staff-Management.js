@@ -4,12 +4,16 @@ exports.StaffManagement = void 0;
 class StaffManagement {
     constructor() {
         this.staffs = [];
+        this.salarys = [];
     }
     createStaff(staff) {
         this.staffs.push(staff);
     }
     getAllStaff() {
         console.table(this.staffs);
+    }
+    addSalary(salary) {
+        this.salarys.push(salary);
     }
     updateStaff(index, newStaff) {
         this.staffs[index] = newStaff;
@@ -90,6 +94,55 @@ class StaffManagement {
             return 0;
         });
         console.table(this.staffs);
+    }
+    roseMoney() {
+        let totalRose = 0;
+        this.staffs.forEach((staff, index) => {
+            if (staff.workday > 26) {
+                totalRose = (staff.workday - 26) * 200;
+                console.log(this.staffs[index].name + " được thưởng :" + totalRose + " $ ");
+            }
+            else if (staff.workday < 26) {
+                totalRose = (26 - staff.workday) * 100;
+                console.log(this.staffs[index].name + " bị phạt : " + totalRose + " $ ");
+            }
+            else {
+                totalRose = 0;
+                console.log(this.staffs[index].name + " tiền thưởng là :" + totalRose + " $ ");
+            }
+        });
+    }
+    salaryOfStaff() {
+        let totalSalary = 0;
+        this.staffs.forEach((staff, index) => {
+            this.salarys.forEach((salary, index) => {
+                if (staff.position === "Manager") {
+                    totalSalary = this.staffs[index].workday * salary.salaryManager;
+                }
+                else if (staff.position === "Vice President") {
+                    totalSalary = this.staffs[index].workday * salary.salaryVicePresident;
+                }
+                else if (staff.position === "Human resources manager") {
+                    totalSalary = this.staffs[index].workday * salary.salaryHumanResourcesManager;
+                }
+                else if (staff.position === "Administrative staff personnel") {
+                    totalSalary = this.staffs[index].workday * salary.salaryAdministrativeStaffPersonnel;
+                }
+                else if (staff.position === "Accounting staff") {
+                    totalSalary = this.staffs[index].workday * salary.salaryAccountingStaff;
+                }
+                else if (staff.position === "Business Staff") {
+                    totalSalary = this.staffs[index].workday * salary.salaryBusinessStaff;
+                }
+                else if (staff.position === "Marketing staff") {
+                    totalSalary = this.staffs[index].workday * salary.salaryMarketingStaff;
+                }
+                else {
+                    totalSalary = this.staffs[index].workday * salary.salarySecurity;
+                }
+            });
+            console.log("Lương của " + this.staffs[index].name + " là : " + totalSalary + " $ ");
+        });
     }
 }
 exports.StaffManagement = StaffManagement;

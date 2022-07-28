@@ -7,15 +7,17 @@ export class Staff {
     private _phone: string;
     private _position: string;
     private _department: string;
+    private _workday: number;
 
 
-    constructor(name: string, age: number, email: string, phone: string, position: string, department: string) {
+    constructor(name: string, age: number, email: string, phone: string, position: string, department: string, workday: number) {
         this._name = name;
         this._age = age;
         this._email = email;
         this._phone = phone;
         this._position = position;
         this._department = department;
+        this._workday = workday;
     }
 
     get name(): string {
@@ -64,5 +66,13 @@ export class Staff {
 
     set department(value: string) {
         this._department = value;
+    }
+
+    get workday(): number {
+        return this._workday;
+    }
+
+    set workday(value: number) {
+        this._workday = value;
     }
 }

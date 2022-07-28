@@ -1,6 +1,8 @@
 import * as rl from 'readline-sync';
 import {StaffManagement} from "./src/Staff-Management";
 import {Staff} from "./src/Staff";
+import {SalaryStaff} from "./src/SalaryStaff";
+
 
 enum ChoiceStaff {
     EXIT,
@@ -9,8 +11,10 @@ enum ChoiceStaff {
     UPDATE,
     DELETE,
     FIND,
-    SORT
+    SORT,
+    SALARY
 }
+
 enum ChoiceOfSort {
     EXIT,
     AGE,
@@ -26,19 +30,30 @@ enum ChoiceOfFind {
 
 }
 
+enum ChoiceOfSalary {
+    EXIT,
+    SALARY1,
+    MONEY
+}
+
 let choice = -1;
 let staffManagement = new StaffManagement();
-let staff1 = new Staff("Thao", 25, "thao@gmail.com", "0977969016", "Manager", "Regent")
-let staff2 = new Staff("Ngọc", 26, "ngoc@gmail.com", "0925682468", "Human resources manager", "Human Resource")
-let staff3 = new Staff("Tuyến", 27, "tuyen@gmail.com", "0925784685", "Vice President", "Regent")
-let staff4 = new Staff("Huyền", 24, "Huyen@gmail.com", "0925648768", "Business Staff", "Sales")
-let staff5 = new Staff("Hùng", 22, "hung@gmail.com", "0932645876", "Business Staff", "Sales")
-let staff6 = new Staff("Hoa", 23, "hoa@gmail.com", "0987543513", "Marketing staff", "Marketing")
-let staff7 = new Staff("Lan", 23, "lan@gmail.com", "0965842351", "Marketing staff", "Marketing")
-let staff8 = new Staff("Hương", 25, "huong@gmail.com", "0324515875", "Accounting staff", "Accounting")
-let staff9 = new Staff("Linh", 24, "linh@gmail.com", "0869452325", "Administrative staff personnel", "Human Resource")
-let staff10 = new Staff("Hoàng", 23, "hoang@gmail.com", "0325468264", "Administrative staff personnel", "Human Resource")
-let staff11 = new Staff("Kiệt", 21, "kiet@gmail.com", "0865464582", "Security", "Security and Order")
+
+let staff1 = new Staff("Thao", 25, "thao@gmail.com", "0977969016", "Manager", "Regent", 26)
+let staff2 = new Staff("Ngọc", 26, "ngoc@gmail.com", "0925682468", "Human resources manager", "Human Resource", 25)
+let staff3 = new Staff("Tuyến", 27, "tuyen@gmail.com", "0925784685", "Vice President", "Regent", 24)
+let staff4 = new Staff("Huyền", 24, "Huyen@gmail.com", "0925648768", "Business Staff", "Sales", 27)
+let staff5 = new Staff("Hùng", 22, "hung@gmail.com", "0932645876", "Business Staff", "Sales", 28)
+let staff6 = new Staff("Hoa", 23, "hoa@gmail.com", "0987543513", "Marketing staff", "Marketing", 26)
+let staff7 = new Staff("Lan", 23, "lan@gmail.com", "0965842351", "Marketing staff", "Marketing", 25)
+let staff8 = new Staff("Hương", 25, "huong@gmail.com", "0324515875", "Accounting staff", "Accounting", 27)
+let staff9 = new Staff("Linh", 24, "linh@gmail.com", "0869452325", "Administrative staff personnel", "Human Resource", 24)
+let staff10 = new Staff("Hoàng", 23, "hoang@gmail.com", "0325468264", "Administrative staff personnel", "Human Resource", 28)
+let staff11 = new Staff("Kiệt", 21, "kiet@gmail.com", "0865464582", "Security", "Security and Order", 25)
+
+let salarys = new SalaryStaff(500, 400, 350, 150, 150, 200, 200, 100)
+staffManagement.addSalary(salarys);
+
 staffManagement.createStaff(staff1);
 staffManagement.createStaff(staff2);
 staffManagement.createStaff(staff3);
@@ -54,6 +69,8 @@ staffManagement.createStaff(staff11);
 function showAllStaff() {
     console.log('----Danh sách nhân viên----');
     staffManagement.getAllStaff();
+
+
 }
 
 function inputStaff() {
@@ -62,8 +79,9 @@ function inputStaff() {
     let email = rl.question('Nhập Email :');
     let phone = rl.question('Nhập số điện thoại :');
     let position = rl.question('Nhập vị trí công việc :');
-    let department = rl.question('Nhập phong ban :');
-    return new Staff(name, age, email, phone, position, department)
+    let department = rl.question('Nhập phòng ban :');
+    let workday = +rl.question('Nhập số ngày làm trong tháng :')
+    return new Staff(name, age, email, phone, position, department, workday)
 }
 
 function showCreateStaff() {
@@ -94,6 +112,7 @@ function Menu() {
     console.log('4. Xóa Nhân Viên');
     console.log('5. Tìm kiếm Nhân Viên');
     console.log('6. Sắp xếp Nhân Viên');
+    console.log('7. Lương, Thưởng và Phạt Nhân Viên');
     console.log('0. Thoát ');
 }
 
@@ -151,6 +170,26 @@ function MenuFind() {
     console.log('3.Tìm kiếm theo phòng ban ');
 }
 
+function showSalary(Choice3: number) {
+    switch (Choice3) {
+        case ChoiceOfSalary.SALARY1 :
+            console.log('--Tiền lương--')
+            staffManagement.salaryOfStaff();
+            break;
+        case ChoiceOfSalary.MONEY :
+            console.log('--Tiền thưởng và phạt-- ')
+            staffManagement.roseMoney();
+            break;
+
+    }
+}
+
+function MenuSalary() {
+    console.log('---Hiển thị lương và thưởng phạt tháng---')
+    console.log('1.Hiển thị lương nhân viên')
+    console.log('2.Tiền thưởng và phạt của nhân viên')
+}
+
 do {
     Menu();
     choice = +rl.question('Nhập lựa chọn của bạn :')
@@ -182,6 +221,13 @@ do {
             let Choice1 = +rl.question('Nhập lựa chọn :')
             showSortStaff(Choice1);
             break;
+        }
+        case ChoiceStaff.SALARY : {
+            MenuSalary();
+            let Choice3 = +rl.question('Nhập lựa chọn :')
+            showSalary(Choice3);
+            break;
+
         }
 
     }

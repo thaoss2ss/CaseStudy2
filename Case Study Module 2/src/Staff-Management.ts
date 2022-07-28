@@ -1,8 +1,11 @@
 import {Staff} from "./Staff";
+import {SalaryStaff} from "./SalaryStaff";
 
 
 export class StaffManagement {
-    private staffs: Staff[] = [];
+    staffs: Staff[] = [];
+    salarys: SalaryStaff[] = [];
+
 
     public createStaff(staff: Staff) {
         this.staffs.push(staff);
@@ -12,9 +15,16 @@ export class StaffManagement {
         console.table(this.staffs)
     }
 
+    addSalary(salary: SalaryStaff) {
+        this.salarys.push(salary);
+
+    }
+
+
     public updateStaff(index: number, newStaff: Staff) {
         this.staffs[index] = newStaff;
     }
+
 
     public deleteStaff(index: number): void {
         this.staffs.splice(index, 1);
@@ -32,10 +42,10 @@ export class StaffManagement {
         console.table(nameStaffList)
     }
 
-    findPositionStaff(position : string) {
+    findPositionStaff(position: string) {
         let flag2 = -1;
         let positionStaffList = [];
-        for (let i = 0; i < this.staffs.length; i++){
+        for (let i = 0; i < this.staffs.length; i++) {
             if (this.staffs[i].position === position) {
                 flag2++;
                 positionStaffList.push(this.staffs[i]);
@@ -44,10 +54,10 @@ export class StaffManagement {
         console.table(positionStaffList)
     }
 
-    findDepartmentStaff(department : string) {
+    findDepartmentStaff(department: string) {
         let flag3 = -1;
         let departmentStaffList = [];
-        for (let i = 0; i < this.staffs.length; i++){
+        for (let i = 0; i < this.staffs.length; i++) {
             if (this.staffs[i].department === department) {
                 flag3++;
                 departmentStaffList.push(this.staffs[i]);
@@ -101,5 +111,48 @@ export class StaffManagement {
             return 0;
         });
         console.table(this.staffs);
+    }
+
+    roseMoney() {
+        let totalRose = 0;
+        this.staffs.forEach((staff, index) => {
+            if (staff.workday > 26) {
+                totalRose = (staff.workday - 26) * 200;
+                console.log(this.staffs[index].name + " được thưởng :" + totalRose + " $ ")
+            } else if (staff.workday < 26) {
+                totalRose = (26 - staff.workday) * 100;
+                console.log(this.staffs[index].name + " bị phạt : " + totalRose + " $ ")
+            } else {
+                totalRose = 0;
+                console.log(this.staffs[index].name + " tiền thưởng là :" + totalRose + " $ ")
+            }
+        })
+    }
+
+    salaryOfStaff() {
+
+        let totalSalary = 0;
+        this.staffs.forEach((staff, index) => {
+            this.salarys.forEach((salary, index) => {
+                if (staff.position === "Manager") {
+                    totalSalary = this.staffs[index].workday * salary.salaryManager;
+                } else if (staff.position === "Vice President") {
+                    totalSalary = this.staffs[index].workday * salary.salaryVicePresident;
+                } else if (staff.position === "Human resources manager") {
+                    totalSalary = this.staffs[index].workday * salary.salaryHumanResourcesManager;
+                } else if (staff.position === "Administrative staff personnel") {
+                    totalSalary = this.staffs[index].workday * salary.salaryAdministrativeStaffPersonnel;
+                } else if (staff.position === "Accounting staff") {
+                    totalSalary = this.staffs[index].workday * salary.salaryAccountingStaff;
+                } else if (staff.position === "Business Staff") {
+                    totalSalary = this.staffs[index].workday * salary.salaryBusinessStaff;
+                } else if (staff.position === "Marketing staff") {
+                    totalSalary = this.staffs[index].workday * salary.salaryMarketingStaff;
+                } else {
+                    totalSalary = this.staffs[index].workday * salary.salarySecurity;
+                }
+            })
+            console.log("Lương của " + this.staffs[index].name + " là : " + totalSalary + " $ ")
+        })
     }
 }
