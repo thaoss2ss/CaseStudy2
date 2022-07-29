@@ -12,6 +12,7 @@ export class LogInManagement {
     addAdmin(admin: Admin) {
         return this.admins.push(admin);
     }
+
     addUser(user: User) {
         return this.users.push(user);
     }
@@ -34,9 +35,10 @@ export class LogInManagement {
         })
         return flag;
     }
+
     checkAccountUser(id: string, password: string): boolean {
         let flag = false;
-        this.users.forEach((user,index) => {
+        this.users.forEach((user, index) => {
             if (user.id == id && user.password == password) {
                 return flag = true;
             }

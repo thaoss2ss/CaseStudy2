@@ -31,6 +31,8 @@ const User_1 = require("./src/User");
 const Admin_1 = require("./src/Admin");
 const LogInManagement_1 = require("./src/LogInManagement");
 const Enum_1 = require("./src/Enum");
+const RegexId_1 = require("./src/Regex/RegexId");
+const RegexPassword_1 = require("./src/Regex/RegexPassword");
 let choice = -1;
 let loginManagement = new LogInManagement_1.LogInManagement();
 let admin = new Admin_1.Admin("Admin", "Admin");
@@ -279,17 +281,17 @@ function MenuOfAdmin() {
 let ChoiceSignIn;
 function MenuLogIn() {
     console.log('---LogIn Display--');
-    console.log('1.Đăng kí');
+    console.log('1.Đăng kí User');
     console.log('2.Đăng Nhập');
     console.log('3.Thoát');
 }
-function SignUp() {
-    console.log('--Đăng kí User--');
-    let idsignup = rl.question('Nhập ID :');
-    let passwordsignup = rl.question(' Nhập Password :');
-    let newAcount = new User_1.User(idsignup, passwordsignup);
-    loginManagement.addUser(newAcount);
-}
+// function SignUp() {
+//     console.log('--Đăng kí User--')
+//     let idsignup = rl.question('Nhập ID :')
+//     let passwordsignup = rl.question(' Nhập Password :')
+//     let newAcount = new User(idsignup, passwordsignup);
+//     loginManagement.addUser(newAcount);
+// }
 function SignIn() {
     console.log('--Đăng Nhập--');
     let idsignin = rl.question('Nhập ID :');
@@ -300,13 +302,16 @@ function SignIn() {
     else if (loginManagement.checkAccountAdmin(idsignin, passwordsignin)) {
         MenuOfAdmin();
     }
+    else
+        (console.log('Mời nhập lại ID & Password'));
 }
 do {
     MenuLogIn();
     ChoiceSignIn = +rl.question('Nhập lựa chọn :');
     switch (ChoiceSignIn) {
         case Enum_1.ChoiceOfLogIn.SIGNUP:
-            SignUp();
+            createAccount();
+            // SignUp();
             break;
         case Enum_1.ChoiceOfLogIn.SIGNIN:
             SignIn();
@@ -315,3 +320,24 @@ do {
             break;
     }
 } while (ChoiceSignIn != Enum_1.ChoiceOfLogIn.EXIT);
+function createAccount() {
+    console.log('-----Tạo mới tài khoản-----');
+    let regexid = new RegexId_1.RegexId();
+    let id = rl.question('Nhập ID: ');
+    if (regexid.checkRegexId(id)) {
+    }
+    else {
+        console.log('Mời nhập lại Id (Id : từ 4 đến 12 kí tự');
+        return id;
+    }
+    let regexpassword = new RegexPassword_1.RegexPassword();
+    let password = rl.question('Nhập password: ');
+    if (regexpassword.checkRegexPassword(password)) {
+    }
+    else {
+        console.log('Mời nhập lại password (password: từ 6 đến 12 kí tự)');
+        return password;
+    }
+    let newAccount = new User_1.User(id, password);
+    loginManagement.addUser(newAccount);
+}
