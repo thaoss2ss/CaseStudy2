@@ -5,9 +5,6 @@ export class LogInManagement {
     admins: Admin[] = [];
     users: User[] = [];
 
-    showAccountAdmin() {
-        return this.admins;
-    }
 
     addAdmin(admin: Admin) {
         return this.admins.push(admin);
@@ -17,14 +14,6 @@ export class LogInManagement {
         return this.users.push(user);
     }
 
-    updateAdmin(id: string, newId: Admin) {
-        this.admins.forEach((admin, index) => {
-            if (admin.id === id) {
-                this.admins[index] = newId;
-            }
-        })
-        return this.admins;
-    }
 
     checkAccountAdmin(id: string, password: string): boolean {
         let flag = false;

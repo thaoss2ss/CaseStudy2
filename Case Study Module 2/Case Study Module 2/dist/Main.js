@@ -85,13 +85,13 @@ function showCreateStaff() {
 }
 function showUpdateStaff() {
     console.log('---Chỉnh sửa thông tin---');
-    let index = +rl.question('Nhập vị trí cần chỉnh sửa( Từ 0 ) :');
+    let index = +rl.question('Nhập vị trí cần chỉnh sửa( Theo Index ) :');
     let staff = inputStaff();
     staffManagement.updateStaff(index, staff);
 }
 function showDeleteFrom() {
     console.log('---Xóa nhân viên---');
-    let index = +rl.question('Nhập vị trí cần xóa( Từ 0 ) :');
+    let index = +rl.question('Nhập vị trí cần xóa( Theo Index ) :');
     staffManagement.deleteStaff(index);
 }
 function MenuOfStaff() {
@@ -192,6 +192,7 @@ function MenuSalary() {
     console.log('---Hiển thị lương và thưởng phạt tháng---');
     console.log('1.Hiển thị lương nhân viên');
     console.log('2.Tiền thưởng và phạt của nhân viên');
+    console.log('3.Thoát');
 }
 function SalaryShowStaff() {
     MenuSalary();
@@ -285,13 +286,6 @@ function MenuLogIn() {
     console.log('2.Đăng Nhập');
     console.log('3.Thoát');
 }
-// function SignUp() {
-//     console.log('--Đăng kí User--')
-//     let idsignup = rl.question('Nhập ID :')
-//     let passwordsignup = rl.question(' Nhập Password :')
-//     let newAcount = new User(idsignup, passwordsignup);
-//     loginManagement.addUser(newAcount);
-// }
 function SignIn() {
     console.log('--Đăng Nhập--');
     let idsignin = rl.question('Nhập ID :');
@@ -311,7 +305,6 @@ do {
     switch (ChoiceSignIn) {
         case Enum_1.ChoiceOfLogIn.SIGNUP:
             createAccount();
-            // SignUp();
             break;
         case Enum_1.ChoiceOfLogIn.SIGNIN:
             SignIn();
@@ -322,20 +315,20 @@ do {
 } while (ChoiceSignIn != Enum_1.ChoiceOfLogIn.EXIT);
 function createAccount() {
     console.log('-----Tạo mới tài khoản-----');
-    let regexid = new RegexId_1.RegexId();
+    let regexId = new RegexId_1.RegexId();
     let id = rl.question('Nhập ID: ');
-    if (regexid.checkRegexId(id)) {
+    if (regexId.checkRegexId(id)) {
     }
     else {
-        console.log('Mời nhập lại Id (Id : từ 4 đến 12 kí tự');
+        console.log('Mời bạn nhập lại Id (Id : từ 4 đến 12 kí tự');
         return id;
     }
-    let regexpassword = new RegexPassword_1.RegexPassword();
+    let regexPassword = new RegexPassword_1.RegexPassword();
     let password = rl.question('Nhập password: ');
-    if (regexpassword.checkRegexPassword(password)) {
+    if (regexPassword.checkRegexPassword(password)) {
     }
     else {
-        console.log('Mời nhập lại password (password: từ 6 đến 12 kí tự)');
+        console.log('Mời bạn nhập lại password (password: từ 6 đến 12 kí tự)');
         return password;
     }
     let newAccount = new User_1.User(id, password);

@@ -26,8 +26,10 @@ export enum ChoiceOfFind {
 
 export enum ChoiceOfSalary {
     EXIT,
-    SALARY1,
-    MONEY
+    SALARY1 = 1,
+    MONEY,
+
+
 }
 
 export enum ChoiceOfUser {

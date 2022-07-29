@@ -6,22 +6,11 @@ class LogInManagement {
         this.admins = [];
         this.users = [];
     }
-    showAccountAdmin() {
-        return this.admins;
-    }
     addAdmin(admin) {
         return this.admins.push(admin);
     }
     addUser(user) {
         return this.users.push(user);
-    }
-    updateAdmin(id, newId) {
-        this.admins.forEach((admin, index) => {
-            if (admin.id === id) {
-                this.admins[index] = newId;
-            }
-        });
-        return this.admins;
     }
     checkAccountAdmin(id, password) {
         let flag = false;
