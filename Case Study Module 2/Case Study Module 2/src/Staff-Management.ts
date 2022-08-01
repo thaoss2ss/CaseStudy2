@@ -34,7 +34,7 @@ export class StaffManagement {
         let flag = -1;
         let nameStaffList = [];
         for (let i = 0; i < this.staffs.length; i++) {
-            if (this.staffs[i].name === name) {
+            if (this.staffs[i].name == name) {
                 flag++;
                 nameStaffList.push(this.staffs[i]);
             }

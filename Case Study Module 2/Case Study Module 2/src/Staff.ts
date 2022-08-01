@@ -10,6 +10,7 @@ export class Staff {
     private _workday: number;
 
 
+
     constructor(name: string, age: number, email: string, phone: string, position: string, department: string, workday: number) {
         this._name = name;
         this._age = age;

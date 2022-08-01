@@ -313,11 +313,11 @@ function MenuLogIn() {
 
 function SignIn() {
     console.log('--Đăng Nhập--')
-    let idsignin = rl.question('Nhập ID :');
-    let passwordsignin = rl.question('Nhập Password :')
-    if (loginManagement.checkAccountUser(idsignin, passwordsignin)) {
+    let idSignIn = rl.question('Nhập ID :');
+    let passwordSignIn = rl.question('Nhập Password :')
+    if (loginManagement.checkAccountUser(idSignIn, passwordSignIn)) {
         MenuOfUser()
-    } else if (loginManagement.checkAccountAdmin(idsignin, passwordsignin)) {
+    } else if (loginManagement.checkAccountAdmin(idSignIn, passwordSignIn)) {
         MenuOfAdmin()
     } else (
         console.log('Mời nhập lại ID & Password')
